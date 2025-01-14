@@ -37,7 +37,7 @@ struct ContentView: View {
             
         }
         .sheet(isPresented: $showSheet){
-            ChildView(name: $name)
+            SheetChildView(name: $name)
         }
         
     }
