@@ -7,15 +7,39 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ChildView: View {
+    @Binding  var name: String
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Section{
+            Text("Name: \(name)")
+            TextField("Enter Name...", text: $name)
         }
-        .padding()
+    }
+}
+
+struct ContentView: View {
+    @State private var name = "Swift UI"
+    @State private var showSheet = false
+    
+    var body: some View {
+        Form{
+            Text("Name: \(name)")
+            TextField("Enter Name...", text: $name)
+            Spacer()
+            Section("Child View"){
+                ChildView(name: $name)
+            }
+            Section{
+                Button("View Sheet"){
+                    showSheet.toggle()
+                }
+            }
+            
+        }
+        .sheet(isPresented: $showSheet){
+            ChildView(name: $name)
+        }
+        
     }
 }
 
